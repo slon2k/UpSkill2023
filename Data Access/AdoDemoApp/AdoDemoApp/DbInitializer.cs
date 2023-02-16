@@ -1,7 +1,8 @@
-﻿using System.Data.SqlClient;
+﻿using AdoDemoApp;
+using System.Data.SqlClient;
 namespace DemoConsoleApp;
 
-internal class DbInitializer
+public class DbInitializer : IDbInitializer
 {
     private readonly string connectionString;
 
@@ -10,7 +11,7 @@ internal class DbInitializer
         this.connectionString = connectionString;
     }
 
-    internal void CreateTables()
+    public void CreateTables()
     {
         string query =
             "CREATE TABLE Student(" +
