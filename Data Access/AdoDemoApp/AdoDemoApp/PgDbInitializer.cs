@@ -35,4 +35,14 @@ public class PgDbInitializer : IDbInitializer
             }
         };
     }
+
+    public void DropTables()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SeedData()
+    {
+        throw new NotImplementedException();
+    }
 }

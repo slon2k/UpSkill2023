@@ -23,6 +23,30 @@ else
     dbInitializer = new DbInitializer(connectionString);
 }
 
+dbInitializer.DropTables();
 dbInitializer.CreateTables();
+dbInitializer.SeedData();
 
-Console.WriteLine("----------------");
+var houseService = new HouseService(connectionString);
+
+var houses = houseService.GetHousesWithStudents();
+
+Console.WriteLine();
+
+foreach (var house in houses)
+{
+    Console.WriteLine();
+    Console.WriteLine("-----------------");
+    Console.WriteLine($"{house.Name}");
+    Console.WriteLine("-----------------");
+    foreach (var student in house.Students)
+    {
+        Console.WriteLine(student.Name);
+    }
+    Console.WriteLine("-----------------");
+}
+
+
+Console.WriteLine();
+Console.WriteLine("Press any key to quit");
+Console.ReadKey();
