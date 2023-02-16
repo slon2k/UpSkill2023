@@ -16,7 +16,9 @@ if (dbType == "postgres")
 {
     connectionString = config.GetConnectionString("PgConnection") ?? throw new InvalidOperationException("Unable to load connection string");
     dbInitializer = new PgDbInitializer(connectionString);
-} else {
+} 
+else 
+{
     connectionString = config.GetConnectionString("DbConnection") ?? throw new InvalidOperationException("Unable to load connection string");
     dbInitializer = new DbInitializer(connectionString);
 }

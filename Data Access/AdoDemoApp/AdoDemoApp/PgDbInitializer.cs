@@ -1,5 +1,4 @@
 ﻿using Npgsql;
-
 namespace AdoDemoApp;
 
 public class PgDbInitializer : IDbInitializer
