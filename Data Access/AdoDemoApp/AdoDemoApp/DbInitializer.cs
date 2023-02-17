@@ -33,8 +33,7 @@ public class DbInitializer : IDbInitializer
             {
                 connection.Open();
                 command.ExecuteNonQuery();
-                Console.WriteLine("Table created");
-                Console.WriteLine();
+                Console.WriteLine("Tables created\n");
             }
             catch (Exception ex)
             {
@@ -57,15 +56,11 @@ public class DbInitializer : IDbInitializer
             {
                 connection.Open();
                 command.ExecuteNonQuery();
-                Console.WriteLine("Tables deleted");
-                Console.WriteLine();
+                Console.WriteLine("Tables deleted\n");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("ERROR: " + ex.Message);
-            }
-            finally { 
-                connection.Close();
             }
         };
     }
@@ -117,7 +112,7 @@ public class DbInitializer : IDbInitializer
             {
                 connection.Open();
                 command.ExecuteNonQuery();
-                Console.WriteLine("House created");
+                Console.WriteLine("House created: " + name);
             }
             catch (Exception ex)
             {
@@ -144,7 +139,7 @@ public class DbInitializer : IDbInitializer
             {
                 connection.Open();
                 command.ExecuteNonQuery();
-                Console.WriteLine("Student created");
+                Console.WriteLine($"Student created: {firstName} {lastName}");
             }
             catch (Exception ex)
             {

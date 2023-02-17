@@ -51,58 +51,56 @@ public class HouseService
             "SELECT * FROM House;" +
             "SELECT * FROM Student;";
 
-        using (var connection = new SqlConnection(connectionString))
+        using var connection = new SqlConnection(connectionString);
+
+        var command = new SqlCommand(query, connection);
+
+        var da = new SqlDataAdapter(command);
+
+        var ds = new DataSet();
+
+        try
         {
+            connection.Open();
 
-            var command = new SqlCommand(query, connection);
+            da.Fill(ds);
 
-            var da = new SqlDataAdapter(command);
+            ds.Tables[0].TableName = "House";
+            ds.Tables[1].TableName = "Student";
 
-            var ds = new DataSet();
+            var houses =
+                from row in ds.Tables[0].AsEnumerable()
+                select new House(
+                    row.Field<int>("Id"),
+                    row.Field<string>("Name") ?? ""
+                    );
 
-            try
-            {
-                connection.Open();
+            var students =
+                from row in ds.Tables[1].AsEnumerable()
+                select new Student(
+                    row.Field<int>("Id"),
+                    row.Field<string>("FirstName") ?? "",
+                    row.Field<string>("LastName") ?? "",
+                    row.Field<int>("HouseId")
+                    );
 
-                da.Fill(ds);
+            var result =
+                from house in houses
+                join student in students on house.Id equals student.HouseId into houseStudents
+                select new HouseModel(
+                    house.Id,
+                    house.Name,
+                    houseStudents.Select(s => new StudentModel(
+                        s.Id,
+                        s.FirstName + " " + s.LastName,
+                        house.Name)));
 
-                ds.Tables[0].TableName = "House";
-                ds.Tables[1].TableName = "Student";
-
-                var houses =
-                    from row in ds.Tables[0].AsEnumerable()
-                    select new House(
-                        row.Field<int>("Id"),
-                        row.Field<string>("Name") ?? ""
-                        );
-
-                var students =
-                    from row in ds.Tables[1].AsEnumerable()
-                    select new Student(
-                        row.Field<int>("Id"),
-                        row.Field<string>("FirstName") ?? "",
-                        row.Field<string>("LastName") ?? "",
-                        row.Field<int>("HouseId")
-                        );
-
-                var result =
-                    from house in houses
-                    join student in students on house.Id equals student.HouseId into houseStudents
-                    select new HouseModel(
-                        house.Id,
-                        house.Name,
-                        houseStudents.Select(s => new StudentModel(
-                            s.Id,
-                            s.FirstName + " " + s.LastName,
-                            house.Name)));
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR :" + ex.Message);
-                throw;
-            }
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("ERROR :" + ex.Message);
+            throw;
         }
     }
 }
