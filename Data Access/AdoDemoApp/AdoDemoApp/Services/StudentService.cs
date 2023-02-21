@@ -8,7 +8,7 @@ namespace AdoDemoApp.Services;
 
 public class StudentService : IStudentService
 {
-    private IDbConnectionFactory connectionFactory;
+    private readonly IDbConnectionFactory connectionFactory;
 
     public StudentService(IDbConnectionFactory factory)
     {
@@ -21,7 +21,7 @@ public class StudentService : IStudentService
         using IDbCommand command = connection.CreateCommand();
         
         command.CommandText = Students.Create;
-        command.CommandType = System.Data.CommandType.StoredProcedure;
+        command.CommandType = CommandType.StoredProcedure;
 
         command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
         command.Parameters.Add(new SqlParameter("@lastName", student.LastName));
@@ -43,6 +43,7 @@ public class StudentService : IStudentService
     {
         using IDbConnection connection = connectionFactory.CreateConnection();
         using IDbCommand command = connection.CreateCommand();
+        
         command.CommandText = Students.Delete;
         command.CommandType = CommandType.StoredProcedure;
 
@@ -74,6 +75,7 @@ public class StudentService : IStudentService
     {
         using IDbConnection connection = connectionFactory.CreateConnection();
         using IDbCommand command = connection.CreateCommand();
+        
         command.CommandText = Students.GetAll;
         command.CommandType = CommandType.StoredProcedure;
 
@@ -108,8 +110,9 @@ public class StudentService : IStudentService
     {
         using IDbConnection connection = connectionFactory.CreateConnection();
         using IDbCommand command = connection.CreateCommand();
-        command.CommandText = StoredProcedures.Students.Update;
-        command.CommandType = System.Data.CommandType.StoredProcedure;
+        
+        command.CommandText = Students.Update;
+        command.CommandType = CommandType.StoredProcedure;
 
         command.Parameters.Add(new SqlParameter("@id", student.Id));
         command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));

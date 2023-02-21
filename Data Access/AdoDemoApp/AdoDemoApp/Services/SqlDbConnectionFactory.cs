@@ -6,7 +6,7 @@ namespace AdoDemoApp.Services;
 
 public class SqlDbConnectionFactory : IDbConnectionFactory
 {
-    private string connectionString;
+    private readonly string connectionString;
 
     public SqlDbConnectionFactory(string connectionString)
     {
