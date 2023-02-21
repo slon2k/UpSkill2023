@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDemoApp", "AdoDemoApp\AdoDemoApp.csproj", "{0AC1F4BD-B98B-4F96-9818-305292240455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdoDemoApp", "AdoDemoApp\AdoDemoApp.csproj", "{0AC1F4BD-B98B-4F96-9818-305292240455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoDemoApp.Tests", "AdoDemoApp.Tests\AdoDemoApp.Tests.csproj", "{D6E1D1DA-066B-45A8-BCC8-C0AFEA1AEBC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0AC1F4BD-B98B-4F96-9818-305292240455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC1F4BD-B98B-4F96-9818-305292240455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC1F4BD-B98B-4F96-9818-305292240455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E1D1DA-066B-45A8-BCC8-C0AFEA1AEBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E1D1DA-066B-45A8-BCC8-C0AFEA1AEBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E1D1DA-066B-45A8-BCC8-C0AFEA1AEBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E1D1DA-066B-45A8-BCC8-C0AFEA1AEBC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
