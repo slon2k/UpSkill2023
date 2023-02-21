@@ -1,6 +1,7 @@
 ﻿using AdoDemoApp.Data;
 using AdoDemoApp.Extensions;
 using AdoDemoApp.Interfaces;
+using AdoDemoApp.Models;
 using AdoDemoApp.Services;
 using Microsoft.Extensions.Configuration;
 
@@ -28,6 +29,14 @@ else
 dbInitializer.DropTables();
 dbInitializer.CreateTables();
 dbInitializer.SeedData();
+
+var studentService = new StudentService(connectionString);
+
+studentService.Create(new Student(0, "Bill", "Weasley", 1));
+studentService.Create(new Student(0, "Ginny", "Weasley", 1));
+studentService.Create(new Student(0, "Fred", "Weasley", 1));
+
+studentService.Update(new Student(13, "George", "Weasley", 1));
 
 var houseService = new HouseService(connectionString);
 
