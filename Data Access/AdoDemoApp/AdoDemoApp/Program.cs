@@ -1,4 +1,5 @@
 ﻿using AdoDemoApp.Data;
+using AdoDemoApp.Extensions;
 using AdoDemoApp.Interfaces;
 using AdoDemoApp.Services;
 using Microsoft.Extensions.Configuration;
@@ -27,27 +28,15 @@ else
 dbInitializer.DropTables();
 dbInitializer.CreateTables();
 dbInitializer.SeedData();
+//Console.WriteLine();
 
 var houseService = new HouseService(connectionString);
 
 var houses = houseService.GetHousesWithStudents();
 
-Console.WriteLine();
-
-foreach (var house in houses)
-{
-    Console.WriteLine();
-    Console.WriteLine("-----------------");
-    Console.WriteLine($"{house.Name}");
-    Console.WriteLine("-----------------");
-    foreach (var student in house.Students)
-    {
-        Console.WriteLine(student.Name);
-    }
-    Console.WriteLine("-----------------");
-}
-
+houses.Print();
 
 Console.WriteLine();
 Console.WriteLine("Press any key to quit");
 Console.ReadKey();
+
