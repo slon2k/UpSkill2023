@@ -1,5 +1,7 @@
-﻿using AdoDemoApp;
-using DemoConsoleApp;
+﻿using AdoDemoApp.Data;
+using AdoDemoApp.Extensions;
+using AdoDemoApp.Interfaces;
+using AdoDemoApp.Services;
 using Microsoft.Extensions.Configuration;
 
 IConfiguration config = new ConfigurationBuilder()
@@ -31,22 +33,9 @@ var houseService = new HouseService(connectionString);
 
 var houses = houseService.GetHousesWithStudents();
 
-Console.WriteLine();
-
-foreach (var house in houses)
-{
-    Console.WriteLine();
-    Console.WriteLine("-----------------");
-    Console.WriteLine($"{house.Name}");
-    Console.WriteLine("-----------------");
-    foreach (var student in house.Students)
-    {
-        Console.WriteLine(student.Name);
-    }
-    Console.WriteLine("-----------------");
-}
-
+houses.Print();
 
 Console.WriteLine();
 Console.WriteLine("Press any key to quit");
 Console.ReadKey();
+

@@ -1,4 +1,4 @@
-﻿namespace AdoDemoApp;
+﻿namespace AdoDemoApp.Models;
 
 public class House
 {

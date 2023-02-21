@@ -1,6 +1,7 @@
-﻿using AdoDemoApp;
-using System.Data.SqlClient;
-namespace DemoConsoleApp;
+﻿using System.Data.SqlClient;
+using AdoDemoApp.Interfaces;
+
+namespace AdoDemoApp.Data;
 
 public class DbInitializer : IDbInitializer
 {
@@ -17,7 +18,7 @@ public class DbInitializer : IDbInitializer
             "CREATE TABLE House(" +
             "Id INT IDENTITY(1,1) PRIMARY KEY," +
             "Name NVARCHAR(100)" +
-            ");"+
+            ");" +
             "CREATE TABLE Student(" +
             "Id INT IDENTITY(1,1) PRIMARY KEY," +
             "HouseId INT FOREIGN KEY REFERENCES House(Id)," +
@@ -37,15 +38,15 @@ public class DbInitializer : IDbInitializer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR: "+ ex.Message);
+                Console.WriteLine("ERROR: " + ex.Message);
             }
-        }; 
+        };
     }
 
-    public void DropTables() 
+    public void DropTables()
     {
         string query =
-            "DROP TABLE Student;" +            
+            "DROP TABLE Student;" +
             "DROP TABLE House;";
 
         using (SqlConnection connection = new(connectionString))

@@ -1,7 +1,8 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
+using AdoDemoApp.Models;
 
-namespace AdoDemoApp;
+namespace AdoDemoApp.Services;
 
 public class HouseService
 {
@@ -12,7 +13,7 @@ public class HouseService
         this.connectionString = connectionString;
     }
 
-    public IEnumerable<House> GetHouses() 
+    public IEnumerable<House> GetHouses()
     {
         string query = "SELECT * FROM House";
 
@@ -45,9 +46,9 @@ public class HouseService
         };
     }
 
-    public IEnumerable<HouseModel> GetHousesWithStudents() 
+    public IEnumerable<HouseModel> GetHousesWithStudents()
     {
-        string query = 
+        string query =
             "SELECT * FROM House;" +
             "SELECT * FROM Student;";
 
