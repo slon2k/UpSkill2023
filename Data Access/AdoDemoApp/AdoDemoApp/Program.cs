@@ -30,11 +30,11 @@ dbInitializer.DropTables();
 dbInitializer.CreateTables();
 dbInitializer.SeedData();
 
-var studentService = new StudentService(connectionString);
+var studentService = new StudentService(new SqlDbConnectionFactory(connectionString));
 
-studentService.Create(new Student(0, "Bill", "Weasley", 1));
-studentService.Create(new Student(0, "Ginny", "Weasley", 1));
-studentService.Create(new Student(0, "Fred", "Weasley", 1));
+studentService.Create(new Student("Bill", "Weasley", 1));
+studentService.Create(new Student("Ginny", "Weasley", 1));
+studentService.Create(new Student("Fred", "Weasley", 1));
 
 studentService.Update(new Student(13, "George", "Weasley", 1));
 

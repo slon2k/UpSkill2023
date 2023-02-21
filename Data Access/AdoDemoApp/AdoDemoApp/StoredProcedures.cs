@@ -1,4 +1,5 @@
 ﻿namespace AdoDemoApp;
+
 internal static class StoredProcedures
 {
     internal static class Students

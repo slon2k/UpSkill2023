@@ -1,6 +1,6 @@
 ﻿using AdoDemoApp.Models;
-
 namespace AdoDemoApp.Interfaces;
+
 public interface IStudentService
 {
     void Create(Student student);

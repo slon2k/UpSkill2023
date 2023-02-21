@@ -1,5 +1,6 @@
 ﻿using AdoDemoApp.Interfaces;
 using AdoDemoApp.Models;
+using System.Data;
 using System.Data.SqlClient;
 using static AdoDemoApp.StoredProcedures;
 
@@ -7,23 +8,24 @@ namespace AdoDemoApp.Services;
 
 public class StudentService : IStudentService
 {
-    private string connectionString;
+    private IDbConnectionFactory connectionFactory;
 
-    public StudentService(string connectionString)
+    public StudentService(IDbConnectionFactory factory)
     {
-        this.connectionString = connectionString;
+        connectionFactory = factory;
     }
 
     public void Create(Student student)
     {
-        using SqlConnection connection = new SqlConnection(connectionString);
-        using SqlCommand command = connection.CreateCommand();
-        command.CommandText = StoredProcedures.Students.Create;
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
+        
+        command.CommandText = Students.Create;
         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-        command.Parameters.AddWithValue("@firstName", student.FirstName);
-        command.Parameters.AddWithValue("@lastName", student.LastName);
-        command.Parameters.AddWithValue("@houseId", student.HouseId);
+        command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
+        command.Parameters.Add(new SqlParameter("@lastName", student.LastName));
+        command.Parameters.Add(new SqlParameter("@houseId", student.HouseId));
 
         try
         {
@@ -39,12 +41,12 @@ public class StudentService : IStudentService
 
     public void Delete(int id)
     {
-        using SqlConnection connection = new SqlConnection(connectionString);
-        using SqlCommand command = connection.CreateCommand();
-        command.CommandText = StoredProcedures.Students.Delete;
-        command.CommandType = System.Data.CommandType.StoredProcedure;
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
+        command.CommandText = Students.Delete;
+        command.CommandType = CommandType.StoredProcedure;
 
-        command.Parameters.AddWithValue("@id", id);
+        command.Parameters.Add(new SqlParameter("@id", id));
 
         try
         {
@@ -70,10 +72,10 @@ public class StudentService : IStudentService
 
     public IEnumerable<Student> GetAll()
     {
-        using SqlConnection connection = new SqlConnection(connectionString);
-        using SqlCommand command = connection.CreateCommand();
-        command.CommandText = StoredProcedures.Students.GetAll;
-        command.CommandType = System.Data.CommandType.StoredProcedure;
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
+        command.CommandText = Students.GetAll;
+        command.CommandType = CommandType.StoredProcedure;
 
         try
         {
@@ -104,15 +106,15 @@ public class StudentService : IStudentService
 
     public void Update(Student student)
     {
-        using SqlConnection connection = new SqlConnection(connectionString);
-        using SqlCommand command = connection.CreateCommand();
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
         command.CommandText = StoredProcedures.Students.Update;
         command.CommandType = System.Data.CommandType.StoredProcedure;
 
-        command.Parameters.AddWithValue("@id", student.Id);
-        command.Parameters.AddWithValue("@firstName", student.FirstName);
-        command.Parameters.AddWithValue("@lastName", student.LastName);
-        command.Parameters.AddWithValue("@houseId", student.HouseId);
+        command.Parameters.Add(new SqlParameter("@id", student.Id));
+        command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
+        command.Parameters.Add(new SqlParameter("@lastName", student.LastName));
+        command.Parameters.Add(new SqlParameter("@houseId", student.HouseId));
 
         try
         {
