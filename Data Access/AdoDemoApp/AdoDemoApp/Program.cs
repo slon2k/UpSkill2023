@@ -28,7 +28,6 @@ else
 dbInitializer.DropTables();
 dbInitializer.CreateTables();
 dbInitializer.SeedData();
-//Console.WriteLine();
 
 var houseService = new HouseService(connectionString);
 
