@@ -1,5 +1,6 @@
-﻿using Npgsql;
-namespace AdoDemoApp;
+﻿using AdoDemoApp.Interfaces;
+using Npgsql;
+namespace AdoDemoApp.Data;
 
 public class PgDbInitializer : IDbInitializer
 {

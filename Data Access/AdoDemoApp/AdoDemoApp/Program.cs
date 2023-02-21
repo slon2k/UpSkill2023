@@ -1,5 +1,6 @@
-﻿using AdoDemoApp;
-using DemoConsoleApp;
+﻿using AdoDemoApp.Data;
+using AdoDemoApp.Interfaces;
+using AdoDemoApp.Services;
 using Microsoft.Extensions.Configuration;
 
 IConfiguration config = new ConfigurationBuilder()

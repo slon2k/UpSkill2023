@@ -1,4 +1,4 @@
-﻿namespace AdoDemoApp;
+﻿namespace AdoDemoApp.Interfaces;
 
 public interface IDbInitializer
 {
