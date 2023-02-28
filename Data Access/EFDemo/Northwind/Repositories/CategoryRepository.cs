@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Northwind.Data;
+using Northwind.Models;
 
 namespace Northwind.Repositories;
-internal class CategoryRepository
+
+public class CategoryRepository : RepositoryBase<Category>
 {
+    public CategoryRepository(NorthwindContext context) : base(context)
+    {
+    }
 }
