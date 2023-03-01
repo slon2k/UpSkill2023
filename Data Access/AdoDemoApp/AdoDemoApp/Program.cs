@@ -10,27 +10,20 @@ IConfiguration config = new ConfigurationBuilder()
     .AddCommandLine(args)
     .Build();
 
-IDbInitializer dbInitializer;
-string connectionString;
+var dbType = config.GetValue<string>("dbType") ?? throw new InvalidOperationException("Unsupported DB type");
+var connectionString = config.GetConnectionString(dbType) ?? throw new InvalidOperationException("Unable to load the connection string");
 
-var dbType = config.GetValue<string>("db");
+IDbConnectionFactory dbConnectionFactory = dbType == "Postgres" ? 
+    new PgDbConnectionFactory(connectionString) : 
+    new SqlDbConnectionFactory(connectionString);
 
-if (dbType == "postgres")
-{
-    connectionString = config.GetConnectionString("PgConnection") ?? throw new InvalidOperationException("Unable to load connection string");
-    dbInitializer = new PgDbInitializer(connectionString);
-} 
-else 
-{
-    connectionString = config.GetConnectionString("DbConnection") ?? throw new InvalidOperationException("Unable to load connection string");
-    dbInitializer = new DbInitializer(connectionString);
-}
+var dbInitializer = dbConnectionFactory.CreateDbInitializer();
 
 dbInitializer.DropTables();
 dbInitializer.CreateTables();
 dbInitializer.SeedData();
 
-var studentService = new StudentService(new SqlDbConnectionFactory(connectionString));
+var studentService = new StudentService(dbConnectionFactory);
 
 studentService.Create(new Student("Bill", "Weasley", 1));
 studentService.Create(new Student("Ginny", "Weasley", 1));

@@ -3,7 +3,6 @@ using AdoDemoApp.Models;
 using AdoDemoApp.Services;
 using Moq;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace AdoDemoApp.Tests;
 
@@ -118,11 +117,11 @@ public class StudentServiceTests
         commandMock.VerifySet(c => c.CommandText = StoredProcedures.Students.Create, Times.Once);
         commandMock.VerifySet(c => c.CommandType = CommandType.StoredProcedure, Times.Once);
 
-        parameterCollectionMock.Verify(x => x.Add(It.IsAny<SqlParameter>()), Times.Exactly(3));
+        parameterCollectionMock.Verify(x => x.Add(It.IsAny<IDbDataParameter>()), Times.Exactly(3));
 
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@lastName") && p.SqlValue.ToString() == "Last")), Times.Once);
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@firstName") && p.SqlValue.ToString() == "First")), Times.Once);
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@houseId") && p.SqlValue.ToString() == "2")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@firstName"), It.Is<string>(s => s == "First")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@lastName"), It.Is<string>(s => s == "Last")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@houseId"), It.Is<int>(s => s == 2)), Times.Once);
     }
 
     [Fact]
@@ -148,12 +147,12 @@ public class StudentServiceTests
         commandMock.VerifySet(c => c.CommandText = StoredProcedures.Students.Update, Times.Once);
         commandMock.VerifySet(c => c.CommandType = CommandType.StoredProcedure, Times.Once);
 
-        parameterCollectionMock.Verify(x => x.Add(It.IsAny<SqlParameter>()), Times.Exactly(4));
+        parameterCollectionMock.Verify(x => x.Add(It.IsAny<IDbDataParameter>()), Times.Exactly(4));
 
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@lastName") && p.SqlValue.ToString() == "Last")), Times.Once);
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@firstName") && p.SqlValue.ToString() == "First")), Times.Once);
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@houseId") && p.SqlValue.ToString() == "2")), Times.Once);
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@id") && p.SqlValue.ToString() == "1")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@firstName"), It.Is<string>(s => s == "First")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@lastName"), It.Is<string>(s => s == "Last")), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@houseId"), It.Is<int>(s => s == 2)), Times.Once);
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@id"), It.Is<int>(s => s == 1)), Times.Once);
     }
 
     [Fact]
@@ -179,9 +178,9 @@ public class StudentServiceTests
         commandMock.VerifySet(c => c.CommandText = StoredProcedures.Students.Delete, Times.Once);
         commandMock.VerifySet(c => c.CommandType = CommandType.StoredProcedure, Times.Once);
 
-        parameterCollectionMock.Verify(x => x.Add(It.IsAny<SqlParameter>()), Times.Once);
-
-        parameterCollectionMock.Verify(x => x.Add(It.Is<SqlParameter>(p => p.ParameterName.Equals("@id") && p.SqlValue.ToString() == "42")), Times.Once);
+        parameterCollectionMock.Verify(x => x.Add(It.IsAny<IDbDataParameter>()), Times.Once);
+        
+        connectionFactoryMock.Verify(x => x.CreateDataParameter(It.Is<string>(s => s == "@id"), It.Is<int>(s => s == 42)), Times.Once);
     }
 
     [Fact]

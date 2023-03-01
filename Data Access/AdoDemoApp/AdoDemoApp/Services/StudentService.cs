@@ -1,7 +1,6 @@
 ﻿using AdoDemoApp.Interfaces;
 using AdoDemoApp.Models;
 using System.Data;
-using System.Data.SqlClient;
 using static AdoDemoApp.StoredProcedures;
 
 namespace AdoDemoApp.Services;
@@ -23,14 +22,14 @@ public class StudentService : IStudentService
         command.CommandText = Students.Create;
         command.CommandType = CommandType.StoredProcedure;
 
-        command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
-        command.Parameters.Add(new SqlParameter("@lastName", student.LastName));
-        command.Parameters.Add(new SqlParameter("@houseId", student.HouseId));
-
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@firstName", student.FirstName));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@lastName", student.LastName));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@houseId", student.HouseId));
+        
         try
         {
             connection.Open();
-            command.ExecuteNonQuery();
+             command.ExecuteNonQuery();
         }
         catch (Exception ex)
         {
@@ -47,7 +46,7 @@ public class StudentService : IStudentService
         command.CommandText = Students.Delete;
         command.CommandType = CommandType.StoredProcedure;
 
-        command.Parameters.Add(new SqlParameter("@id", id));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@id", id));
 
         try
         {
@@ -69,7 +68,7 @@ public class StudentService : IStudentService
         command.CommandType = CommandType.StoredProcedure;
         command.CommandText = Students.FindByName;
 
-        command.Parameters.Add(new SqlParameter("@name", name));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@name", name));
 
         IDbDataAdapter dataAdapter = connectionFactory.CreateDataAdapter();
         dataAdapter.SelectCommand = command;
@@ -106,6 +105,8 @@ public class StudentService : IStudentService
 
         command.CommandText = Students.Get;
         command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@id", id));
 
         try
         {
@@ -175,10 +176,10 @@ public class StudentService : IStudentService
         command.CommandText = Students.Update;
         command.CommandType = CommandType.StoredProcedure;
 
-        command.Parameters.Add(new SqlParameter("@id", student.Id));
-        command.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
-        command.Parameters.Add(new SqlParameter("@lastName", student.LastName));
-        command.Parameters.Add(new SqlParameter("@houseId", student.HouseId));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@id", student.Id));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@firstName", student.FirstName));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@lastName", student.LastName));
+        command.Parameters.Add(connectionFactory.CreateDataParameter("@houseId", student.HouseId));
 
         try
         {

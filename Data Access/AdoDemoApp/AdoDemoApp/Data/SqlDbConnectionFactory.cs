@@ -22,4 +22,14 @@ public class SqlDbConnectionFactory : IDbConnectionFactory
     {
         return new SqlDataAdapter();
     }
+
+    public IDbDataParameter CreateDataParameter(string parameterName, object value)
+    {
+        return new SqlParameter(parameterName, value);
+    }
+
+    public IDbInitializer CreateDbInitializer()
+    {
+        return new SqlDbInitializer(connectionString);
+    }
 }

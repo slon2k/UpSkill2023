@@ -3,11 +3,11 @@ using AdoDemoApp.Interfaces;
 
 namespace AdoDemoApp.Data;
 
-public class DbInitializer : IDbInitializer
+public class SqlDbInitializer : IDbInitializer
 {
     private readonly string connectionString;
 
-    public DbInitializer(string connectionString)
+    public SqlDbInitializer(string connectionString)
     {
         this.connectionString = connectionString;
     }
