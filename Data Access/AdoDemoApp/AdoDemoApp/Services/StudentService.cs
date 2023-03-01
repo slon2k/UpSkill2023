@@ -63,12 +63,73 @@ public class StudentService : IStudentService
 
     public IEnumerable<Student> FindByName(string name)
     {
-        throw new NotImplementedException();
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
+
+        command.CommandType = CommandType.StoredProcedure;
+        command.CommandText = Students.FindByName;
+
+        command.Parameters.Add(new SqlParameter("@name", name));
+
+        IDbDataAdapter dataAdapter = connectionFactory.CreateDataAdapter();
+        dataAdapter.SelectCommand = command;
+
+        try
+        {
+            connection.Open();
+
+            var ds = new DataSet();
+
+            dataAdapter.Fill(ds);
+
+            var dt = ds.Tables[0];
+
+            return
+                from row in dt.AsEnumerable()
+                select new Student(
+                    row.Field<int>("Id"),
+                    row.Field<string>("FirstName") ?? "",
+                    row.Field<string>("LastName") ?? "",
+                    row.Field<int>("HouseId"));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("ERROR: " + ex.Message);
+            throw;
+        }
     }
 
     public Student? Get(int id)
     {
-        throw new NotImplementedException();
+        using IDbConnection connection = connectionFactory.CreateConnection();
+        using IDbCommand command = connection.CreateCommand();
+
+        command.CommandText = Students.Get;
+        command.CommandType = CommandType.StoredProcedure;
+
+        try
+        {
+            connection.Open();
+
+            var reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                return new Student(
+                    reader.GetInt32(0),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    reader.GetInt32(1)
+                );
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
     }
 
     public IEnumerable<Student> GetAll()

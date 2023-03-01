@@ -17,4 +17,9 @@ public class SqlDbConnectionFactory : IDbConnectionFactory
     {
         return new SqlConnection(connectionString);
     }
+
+    public IDbDataAdapter CreateDataAdapter()
+    {
+        return new SqlDataAdapter();
+    }
 }
