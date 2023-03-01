@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace AdoDemoApp.Services;
+namespace AdoDemoApp.Data;
 
 public class SqlDbConnectionFactory : IDbConnectionFactory
 {
