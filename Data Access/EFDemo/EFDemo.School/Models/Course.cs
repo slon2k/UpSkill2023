@@ -15,7 +15,7 @@ public class Course
 
     public CourseDetails? CourseDetails { get; set; }
 
-    public ICollection<Enrollment> Enrollments { get; set; }
+    public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 
-    public ICollection<Student> Students { get; set; }
+    public ICollection<Student> Students { get; set; } = new List<Student>();
 }

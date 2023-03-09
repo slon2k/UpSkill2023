@@ -12,7 +12,7 @@ public class Student
 
     public House House { get; set; } = null!;
 
-    public ICollection<Enrollment> Enrollments { get; set; }
+    public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 
-    public ICollection<Course> Courses { get; set; }
+    public ICollection<Course> Courses { get; set; } = new List<Course>();
 }
