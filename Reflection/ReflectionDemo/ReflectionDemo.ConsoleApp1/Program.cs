@@ -48,7 +48,9 @@ foreach (var p in props)
 
 var fields = personType?.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
+Console.WriteLine();
 Console.WriteLine("Fields: ");
+
 foreach (var field in fields)
 {
     Console.WriteLine(field.Name);
