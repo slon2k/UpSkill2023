@@ -42,7 +42,24 @@ Parallel.ForEach(Range(1, 10_000_000), i =>
 
 stopwatch.Stop();
 
-Console.WriteLine($"Parallel: {stopwatch.ElapsedMilliseconds}");
+Console.WriteLine($"Parallel ForEach: {stopwatch.ElapsedMilliseconds}");
+
+
+primesBag.Clear();
+
+stopwatch.Restart();
+
+Parallel.For(1, 10_000_000, i => 
+{
+    if (IsPrime(i))
+	{
+        primesBag.Add(i);
+    }
+});
+
+stopwatch.Stop();
+Console.WriteLine($"Parallel For: {stopwatch.ElapsedMilliseconds}");
+
 
 Console.WriteLine("Press a key to quit");
 Console.ReadKey();
