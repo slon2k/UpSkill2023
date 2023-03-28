@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 
 
@@ -12,6 +11,8 @@ using System.Diagnostics;
 
 //await task;
 
+
+// ForEach Loop
 var primesList = new List<long>();
 
 Stopwatch stopwatch = Stopwatch.StartNew();
@@ -28,6 +29,8 @@ stopwatch.Stop();
 
 Console.WriteLine($"Sequencial: {stopwatch.ElapsedMilliseconds}");
 
+
+// Parallel ForEach Loop
 var primesBag = new ConcurrentBag<long>();
 
 stopwatch.Restart();
@@ -44,7 +47,7 @@ stopwatch.Stop();
 
 Console.WriteLine($"Parallel ForEach: {stopwatch.ElapsedMilliseconds}");
 
-
+// Parallel For Loop
 primesBag.Clear();
 
 stopwatch.Restart();
@@ -64,7 +67,6 @@ Console.WriteLine($"Parallel For: {stopwatch.ElapsedMilliseconds}");
 Console.WriteLine("Press a key to quit");
 Console.ReadKey();
 
-
 static IEnumerable<long> Range(long from, long to)
 {
 	while (from++ < to)
@@ -72,7 +74,6 @@ static IEnumerable<long> Range(long from, long to)
 		yield return from;
 	}
 }
-
 
 static bool IsPrime(long number)
 {
