@@ -8,20 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="xml\Customers.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Customers.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="xml\Customers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="xml\Customers.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Customers.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="xml\CustomersAndSales.xml">

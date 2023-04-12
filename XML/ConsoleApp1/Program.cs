@@ -1,5 +1,6 @@
 ﻿using ConsoleApp1;
 using ConsoleApp1.Models;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -17,7 +18,16 @@ using (var fs = new FileStream(customerPath, FileMode.Open))
 	try
 	{
 		Customer customer = (Customer)serializer.Deserialize(fs);
+		
 		Console.WriteLine(customer.ToString());
+
+		var jsonCustomer = JsonSerializer.Serialize(customer, new JsonSerializerOptions { WriteIndented = true });
+
+		Console.WriteLine(jsonCustomer.ToString());
+
+		var fileName = Path.ChangeExtension(customerPath, "json");
+
+		File.WriteAllText(fileName, jsonCustomer);
 	}
 	catch (Exception ex)
 	{
@@ -35,6 +45,16 @@ using (var fs = new FileStream(customersPath, FileMode.Open))
 		{
 			Console.WriteLine(customer.ToString());
 		}
+
+		var jsonCustomers = JsonSerializer.Serialize(
+				customers,
+				new JsonSerializerOptions 
+				{ 
+					WriteIndented = true,
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				});
+
+		Console.WriteLine(jsonCustomers.ToString());
 	}
 	catch (Exception ex)
 	{
