@@ -55,7 +55,11 @@ using (var fs = new FileStream(customersPath, FileMode.Open))
 				});
 
 		Console.WriteLine(jsonCustomers.ToString());
-	}
+
+        var fileName = Path.ChangeExtension(customersPath, "json");
+
+        File.WriteAllText(fileName, jsonCustomers);
+    }
 	catch (Exception ex)
 	{
 		Console.WriteLine(ex);

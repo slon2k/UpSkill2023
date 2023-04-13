@@ -1,0 +1,65 @@
+﻿{
+  "SalesOrderID": 71915,
+  "OrderDate": "2004-06-01T00:00:00",
+  "DueDate": "2004-06-13T00:00:00",
+  "ShipDate": "2004-06-08T00:00:00",
+  "Status": 5,
+  "SalesOrderNumber": "SO71915",
+  "PurchaseOrderNumber": "PO2349143275",
+  "AccountNumber": "10-4020-000006",
+  "CustomerID": 6,
+  "ShipToAddressID": 989,
+  "BillToAddressID": 989,
+  "ShipMethod": "CARGO TRANSPORT 5",
+  "SubTotal": 2137.2310,
+  "TaxAmt": 170.9785,
+  "Freight": 53.4308,
+  "TotalDue": 2361.6403,
+  "OrderDetails": [
+    {
+      "SalesOrderID": 71915,
+      "SalesOrderDetailID": 113089,
+      "OrderQty": 3,
+      "ProductID": 836,
+      "UnitPrice": 356.8980,
+      "UnitPriceDiscount": 0.0000,
+      "LineTotal": 1070.694000
+    },
+    {
+      "SalesOrderID": 71915,
+      "SalesOrderDetailID": 113090,
+      "OrderQty": 2,
+      "ProductID": 738,
+      "UnitPrice": 202.3320,
+      "UnitPriceDiscount": 0.0000,
+      "LineTotal": 404.664000
+    },
+    {
+      "SalesOrderID": 71915,
+      "SalesOrderDetailID": 113091,
+      "OrderQty": 4,
+      "ProductID": 938,
+      "UnitPrice": 24.2940,
+      "UnitPriceDiscount": 0.0000,
+      "LineTotal": 97.176000
+    },
+    {
+      "SalesOrderID": 71915,
+      "SalesOrderDetailID": 113092,
+      "OrderQty": 3,
+      "ProductID": 939,
+      "UnitPrice": 37.2540,
+      "UnitPriceDiscount": 0.0000,
+      "LineTotal": 111.762000
+    },
+    {
+      "SalesOrderID": 71915,
+      "SalesOrderDetailID": 113093,
+      "OrderQty": 1,
+      "ProductID": 940,
+      "UnitPrice": 48.5940,
+      "UnitPriceDiscount": 0.0000,
+      "LineTotal": 48.594000
+    }
+  ]
+}
